@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Internals for executing RapidAPI tests
+# Internals for executing Functionize tests
 module CukewrapperFunctionize
   # Wraps the test execution API
   class FunctionizeSession
@@ -19,5 +19,5 @@ module CukewrapperFunctionize
     end
   end
 
-  SESSION = FunctionizeSession.new(ENV['FZE_CLIENT_ID'], ENV['FZE_CLIENT_SECRET'])
+  SESSION = FunctionizeSession.new(ENV['FNZE_CLIENT_ID'], ENV['FNZE_CLIENT_SECRET'])
 end

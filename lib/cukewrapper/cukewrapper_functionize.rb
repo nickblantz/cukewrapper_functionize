@@ -23,7 +23,7 @@ module Cukewrapper
     def enable
       lambda do |_context, metatags|
         @config = CONFIG['functionize'] || {}
-        @metatags = metatags['fze'] || {}
+        @metatags = metatags['fnze'] || {}
         @test_id = @metatags['tid']
         @project_id = @metatags['pid'] || @config['project']
         @browsers = (@metatags['browsers'] || '').split(',')
@@ -55,6 +55,6 @@ module Cukewrapper
 
         raise "Failure when executing test: #{status}" if test_failed
       end
-    endy
+    end
   end
 end

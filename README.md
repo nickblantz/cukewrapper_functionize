@@ -19,10 +19,10 @@ end
 
 ### Feature File
 
-<!-- Add the `@ten.rapid.tid` tag to your scenario
+<!-- Add the `@cw.rapid.tid` tag to your scenario
 
 ```gherkin
-@ten.rapid.tid=113fba21-f125-4327-13ge-77c0af834b76
+@cw.rapid.tid=113fba21-f125-4327-13ge-77c0af834b76
 Scenario: My scenario
     Given ...
 ``` -->
