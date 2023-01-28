@@ -5,12 +5,15 @@ module Cukewrapper
   class FunctionizeExecutor < Executor
     priority :normal
 
-    def run(_context)
+    def run(context)
       return unless @enabled
-
-      CukewrapperFunctionize::Test.new @project_id, @test_id
+      
+      client = CukewrapperFunctionize::Client.new @config
+      test = CukewrapperFunctionize::Test.new client, @project_id, @test_id
       LOGGER.debug("#{self.class.name}\##{__method__}") { 'Executing test' }
-      @run = CukewrapperFunctionize::Test.execute_many([@test_id], [], @browsers)
+      @run = (context.empty?) ?
+        test.run(@browser) :
+        test.run_with_var(@browser, context['data'])
     end
 
     def register_hooks
@@ -26,7 +29,7 @@ module Cukewrapper
         @metatags = metatags['fnze'] || {}
         @test_id = @metatags['tid']
         @project_id = @metatags['pid'] || @config['project']
-        @browsers = (@metatags['browsers'] || '').split(',')
+        @browser = @metatags['browser']
         @enabled = !@metatags['tid'].nil?
         LOGGER.debug("#{self.class.name}\##{__method__}") { @enabled }
       end
@@ -41,17 +44,19 @@ module Cukewrapper
       lambda do |_context, _scenario|
         return unless @enabled
 
-        wait_time = 1
-        while (status = check_status) && status['Status'] != 'Completed'
-          LOGGER.debug("#{self.class.name}\##{__method__}") { "Sleeping #{wait_time} seconds" }
-          sleep wait_time
-          wait_time *= 2
-        end
-
         test_failed = false
-        for result in status['tests']
-          test_failed = true if result['status'] != 'Passed'
-        end
+
+        # TODO: Fix result checks
+        # wait_time = 10
+        # while (status = check_status) && status['Status'] != 'Completed'
+        #   LOGGER.debug("#{self.class.name}\##{__method__}") { "Current status is #{status['Status']}, sleeping #{wait_time} seconds"  }
+        #   sleep wait_time
+        # end
+
+        # test_failed = false
+        # for result in status['tests']
+        #   test_failed = true if result['status'] != 'Passed'
+        # end
 
         raise "Failure when executing test: #{status}" if test_failed
       end

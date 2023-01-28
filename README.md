@@ -1,4 +1,4 @@
-# CukewrapperRapidAPI
+# CukewrapperFunctionize
 
 This plugin allows you to execute Functionize tests
 
@@ -19,30 +19,27 @@ end
 
 ### Feature File
 
-<!-- Add the `@cw.rapid.tid` tag to your scenario
+Add the `@cw.fnze.tid` tag to your scenario
 
 ```gherkin
-@cw.rapid.tid=113fba21-f125-4327-13ge-77c0af834b76
+@cw.fnze.tid=113fba21-f125-4327-13ge-77c0af834b76
 Scenario: My scenario
     Given ...
-``` -->
+```
 
 ### Configuration File
-
-<!-- You can provide the following below in `cukewrapper.yml`
+You can provide the following below in `cukewrapper.yml`
 
 ```yaml
-rapidapi:
-  context: '0000000'
-  location: AWS-US-EAST-1
-  environment: environment_1fbf1adc-9e94-4a45-22c5-625478686b361
-``` -->
+functionize:
+  project: '0000000'
+```
 
 ### Environment Variables
 
-<!-- - `RAPIDAPI_ENV`: Overrides the environment in `cukewrapper.yml`
-- `RAPIDAPI_USERNAME`: Sets the username for authenticating to RapidAPI tests
-- `RAPIDAPI_PASSWORD`: Sets the password for authenticating to RapidAPI tests -->
+<!-- - `FUNCTIONIZE_ENV`: Overrides the environment in `cukewrapper.yml` -->
+- `FUNCTIONIZE_USERNAME`: Sets the username for authenticating to Functionize tests
+- `FUNCTIONIZE_PASSWORD`: Sets the password for authenticating to Functionize tests
 
 ## Development
 
@@ -52,7 +49,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/nickblantz/cukewrapper_rapidapi. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/nickblantz/cukewrapper_rapidapi/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/nickblantz/cukewrapper_functionize. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/nickblantz/cukewrapper_functionize/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -60,4 +57,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the CukewrapperRapidAPI project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/nickblantz/cukewrapper_rapidapi/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the CukewrapperFunctionize project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/nickblantz/cukewrapper_functionize/blob/master/CODE_OF_CONDUCT.md).

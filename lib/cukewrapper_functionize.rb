@@ -2,7 +2,7 @@
 
 require_relative 'cukewrapper_functionize/version'
 
-module CukewrapperRapidAPI
+module CukewrapperFunctionize
   require 'json'
   require 'httparty'
   require 'cukewrapper_functionize/api/test'

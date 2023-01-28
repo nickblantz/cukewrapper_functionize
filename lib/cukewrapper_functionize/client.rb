@@ -5,6 +5,8 @@ module CukewrapperFunctionize
     include HTTParty
     format :json
 
+    attr_accessor :auth_token
+
     def initialize(config)
       self.class.base_uri(config.fetch('base_uri', default_config['base_uri']))
       @auth_token = get_auth_token
@@ -23,8 +25,9 @@ module CukewrapperFunctionize
     private
 
     def get_auth_token
-      response = get '/generateToken', {
-        query: auth_config.to_json,
+      response = post '/generateToken', {
+        headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
+        body: auth_config,
       }
 
       raise "Error getting auth token: #{response.code} | #{response.body}" unless response.code == 200
@@ -43,18 +46,18 @@ module CukewrapperFunctionize
         headers: {
           'Accept' => 'application/json',
           'Content-Type' => 'application/json',
+          'accesstoken' => @auth_token
         },
         query: {
-          'accesstoken' => @auth_token,
-          'response_type' => 'json',
+          'response_type' => 'json'
         },
       }
     end
 
     def auth_config
-      client_id = ENV['RAPIDAPI_USERNAME']
-      client_secret = ENV['RAPIDAPI_PASSWORD']
-      { 'apiKey' => client_id, 'secret' => client_secret, 'response_type' => 'json' }
+      client_id = ENV['FUNCTIONIZE_USERNAME']
+      client_secret = ENV['FUNCTIONIZE_PASSWORD']
+      { 'apikey' => client_id, 'secret' => client_secret, 'response_type' => 'json' }
     end
   end
 end
