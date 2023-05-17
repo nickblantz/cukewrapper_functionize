@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module CukewrapperFunctionize
+  # Handles communication between Cukewrapper and Functionize
   class Client
     include HTTParty
     format :json
@@ -9,7 +10,7 @@ module CukewrapperFunctionize
 
     def initialize(config)
       self.class.base_uri(config.fetch('base_uri', default_config['base_uri']))
-      @auth_token = get_auth_token
+      @auth_token = get_auth_token(config)
     end
 
     def get(path, options = {})
@@ -24,10 +25,14 @@ module CukewrapperFunctionize
 
     private
 
-    def get_auth_token
+    def get_auth_token(config)
       response = post '/generateToken', {
         headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
-        body: auth_config,
+        body: {
+          'apikey' => config['apikey'],
+          'secret' => config['secret'],
+          'response_type' => 'json'
+        }
       }
 
       raise "Error getting auth token: #{response.code} | #{response.body}" unless response.code == 200
@@ -37,7 +42,7 @@ module CukewrapperFunctionize
 
     def default_config
       {
-        'base_uri' => 'https://app.functionize.com/api/v4',
+        'base_uri' => 'https://app.functionize.com/api/v4'
       }.freeze
     end
 
@@ -50,14 +55,8 @@ module CukewrapperFunctionize
         },
         query: {
           'response_type' => 'json'
-        },
+        }
       }
-    end
-
-    def auth_config
-      client_id = ENV['FUNCTIONIZE_USERNAME']
-      client_secret = ENV['FUNCTIONIZE_PASSWORD']
-      { 'apikey' => client_id, 'secret' => client_secret, 'response_type' => 'json' }
     end
   end
 end

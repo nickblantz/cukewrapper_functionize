@@ -2,6 +2,7 @@
 
 require_relative 'cukewrapper_functionize/version'
 
+# Internals for executing Functionize tests
 module CukewrapperFunctionize
   require 'json'
   require 'httparty'

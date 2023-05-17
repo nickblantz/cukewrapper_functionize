@@ -12,7 +12,7 @@ module CukewrapperFunctionize
       response = @client.get("/tests/run/#{@run_id}/status", {
         query: { 'run_id' => @run_id }
       })
-      
+
       raise "Error checking testexcecution status: #{response.code} | #{response.body}" unless response.code == 200
 
       response.parsed_response
